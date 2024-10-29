@@ -1,0 +1,85 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Registra</h5>
+                    <hr />
+                    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="nombres">Nombres: <span class="text-danger">(*)</span></label>
+                                    <input id="nombres" type="text" class="form-control" formControlName="nombres"
+                                        placeholder="Ingrese su nombre" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="apellidos">Apellidos: <span class="text-danger">(*)</span></label>
+                                    <input id="apellidos" type="text" class="form-control" formControlName="apellidos"
+                                        placeholder="Ingrese sus apellidos" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label for="telefono">Teléfono:</label>
+                                    <input id="telefono" type="tel" class="form-control" formControlName="telefono"
+                                        placeholder="Ingrese su teléfono" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label for="distrito">Distrito: <span class="text-danger">(*)</span></label>
+                                    <select id="distrito" class="form-control" formControlName="distrito">
+                                        <option value="">Seleccione su distrito</option>
+                                        <option *ngFor="let distrito of distritos" [value]="distrito">{{distrito}}
+                                        </option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" [disabled]="!registroForm.valid">
+                            Registrarse
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h4 class="text-center">Datos Registrados</h4>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Teléfono</th>
+                <th>Distrito</th>
+                <th>Acciones</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let registro of registros">
+                <td>{{ registro.nombres }}</td>
+                <td>{{ registro.apellidos }}</td>
+                <td>{{ registro.telefono || 'N/A' }}</td>
+                <td>{{ registro.distrito }}</td>
+                <td>
+                    <button (click)="editarRegistro(registro)" class="btn btn-primary btn-sm">Editar</button>
+                    <button (click)="eliminarRegistro(registro.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
